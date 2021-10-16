@@ -1,2 +1,3 @@
 # cse210
-Test push
+this repository is for all the solo chanlenges
+
