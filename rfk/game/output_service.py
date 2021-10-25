@@ -18,17 +18,16 @@ class OutputService:
         Args:
             self (OutputService): An instance of OutputService.
         """
-        pass
 
     def open_window(self, title):
         """
-        Opens a new window with the specified title
+        Opens a new window with the provided title.
         """
         raylibpy.init_window(constants.MAX_X, constants.MAX_Y, title)
         raylibpy.set_target_fps(constants.FRAME_RATE)
         
     def clear_screen(self):
-        """Clears the screen in preparation for the next rendering.
+        """Clears the Asciimatics buffer in preparation for the next rendering.
 
         Args:
             self (OutputService): An instance of OutputService.
@@ -51,11 +50,7 @@ class OutputService:
         if is_dark_text:
             color = raylibpy.BLACK
 
-        raylibpy.draw_text(text,
-            x + constants.DEFAULT_TEXT_OFFSET,
-            y + constants.DEFAULT_TEXT_OFFSET,
-            constants.DEFAULT_FONT_SIZE,
-            color)
+        raylibpy.draw_text(text, x + 5, y + 5, constants.DEFAULT_FONT_SIZE, color)
 
     def draw_actor(self, actor):
         """Renders the given actor's text on the screen.
@@ -71,17 +66,11 @@ class OutputService:
         width = actor.get_width()
         height = actor.get_height()
 
-        is_dark_text = True
-
-        if width > 0 and height > 0:
-            self.draw_box(x, y, width, height)
-            is_dark_text = False
-        
         if text != "":
-            self.draw_text(x, y, text, is_dark_text)
-        #self._screen.print_at(text, x, y, 7) # WHITE
-        #raylibpy.draw_text(text, x, y, 16, raylibpy.BLUE)
-
+            self.draw_text(x, y, text, True)
+        elif width > 0 and height > 0:
+            self.draw_box(x, y, width, height)
+        
     def draw_actors(self, actors):
         """Renders the given list of actors on the screen.
 

@@ -18,6 +18,7 @@ class Snake:
             self (Snake): An instance of snake.
         """
         super().__init__()
+        self._collidable_index = constants.DEFAULT_SQUARE_LENGTH + 1
         self._segments = []
         self._prepare_body()
     
@@ -43,6 +44,12 @@ class Snake:
         """
         return self._segments[1:]
 
+    def get_collidable_segments(self):
+        """
+        Get's the part of the snake that can be collided with.
+        """
+        return self._segments[self._collidable_index:]
+
     def get_head(self):
         """Gets the snake's head.
         
@@ -54,7 +61,16 @@ class Snake:
         """
         return self._segments[0]
 
-    def grow_tail(self):
+    def grow_tail(self, amount):
+        """
+        Grows the tail by the amount specified.
+        """
+        grow_amount = amount * 10
+
+        for i in range(grow_amount):
+            self.grow_tail_single()
+
+    def grow_tail_single(self):
         """Grows the snake's tail by one segment.
         
         Args:
@@ -62,30 +78,41 @@ class Snake:
         """
         tail = self._segments[-1]
         offset = tail.get_velocity().reverse()
-        text = "#"
         position = tail.get_position().add(offset)
         velocity = tail.get_velocity()
-        self._add_segment(text, position, velocity)
+        self._add_segment(position, velocity)
     
-    def move_head(self, direction):
-        """Moves the snake in the given direction.
+    def turn_head(self, direction):
+        """Moves the head in the given direction.
 
         Args:
             self (Snake): An instance of snake.
             direction (Point): The direction to move.
         """
-        count = len(self._segments) - 1
-        for n in range(count, -1, -1):
-            segment = self._segments[n]
-            if n > 0:
-                leader = self._segments[n - 1]
-                velocity = leader.get_velocity()
-                segment.set_velocity(velocity)
-            else:
-                segment.set_velocity(direction)
+        head = self.get_head()
+        head.set_velocity(direction)
+
+
+    def move(self):
+        """Moves the each segment of the snake.
+
+        Args:
+            self (Snake): An instance of snake.
+        """
+        # First move them all forward
+        for segment in self._segments:
             segment.move_next()
 
-    def _add_segment(self, text, position, velocity):
+        # Now update the velocity of each segment to be the one before it
+        count = len(self._segments) - 1
+        for n in range(count, 0, -1):
+            current_segment = self._segments[n]
+            segment_before = self._segments[n - 1]
+
+            velocity = segment_before.get_velocity()
+            current_segment.set_velocity(velocity)
+
+    def _add_segment(self, position, velocity):
         """Adds a new segment to the snake using the given text, position and velocity.
 
         Args:
@@ -95,9 +122,10 @@ class Snake:
             velocity (Point): The segment's velocity.
         """
         segment = Actor()
-        segment.set_text(text)
         segment.set_position(position)
         segment.set_velocity(velocity)
+        segment.set_width(constants.DEFAULT_SQUARE_LENGTH)
+        segment.set_height(constants.DEFAULT_SQUARE_LENGTH)
         self._segments.append(segment)
 
     def _prepare_body(self):
@@ -109,7 +137,6 @@ class Snake:
         x = int(constants.MAX_X / 2)
         y = int(constants.MAX_Y / 2)
         for n in range(constants.SNAKE_LENGTH):
-            text = "8" if n == 0 else "#"
             position = Point(x - n, y)
             velocity = Point(1, 0)
-            self._add_segment(text, position, velocity)
+            self._add_segment(position, velocity)

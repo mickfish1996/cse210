@@ -1,31 +1,25 @@
 import sys
 from game.point import Point
-from asciimatics.event import KeyboardEvent
+import raylibpy
 
 class InputService:
-    """Detects player input. The responsibility of the class of objects is to detect player keypresses and translate them into a point representing a direction (or velocity).
+    """Detects player input. The responsibility of the class of objects is
+    to detect player keypresses and translate them into a point representing
+    a direction (or velocity).
 
     Stereotype: 
         Service Provider
 
     Attributes:
-        _screen (Screen): An Asciimatics screen.
-        _directions (Dict): A dictionary containing Points for U, D, L and R.
         _current (Point): The last direction that was pressed.
     """
 
-    def __init__(self, screen):
+    def __init__(self):
         """The class constructor.
         
         Args:
             self (InputService): An instance of InputService.
         """
-        self._screen = screen
-        self._keys = {}
-        self._keys[119] = Point(0, -1) # UP
-        self._keys[115] = Point(0, 1) # LEFT
-        self._keys[97] = Point(-1, 0) # DOWN
-        self._keys[100] = Point(1, 0) # RIGHT
         self._current = Point(1, 0)
         
     def get_direction(self):
@@ -38,9 +32,43 @@ class InputService:
         Returns:
             Point: The selected direction.
         """
-        event = self._screen.get_event()
-        if isinstance(event, KeyboardEvent):
-            if event.key_code == 27:
-                sys.exit()
-            self._current = self._keys.get(event.key_code, self._current)
+        if self.is_left_pressed():
+            self._current = Point(-1, 0)
+        elif self.is_right_pressed():
+            self._current = Point(1, 0)
+        elif self.is_up_pressed():
+            self._current = Point(0, -1)
+        elif self.is_down_pressed():
+            self._current = Point(0, 1)
+
         return self._current
+
+    def is_left_pressed(self):
+        """
+        Determines if the left key is currently being pushed
+        """
+        return raylibpy.is_key_down(raylibpy.KEY_LEFT)
+
+    def is_right_pressed(self):
+        """
+        Determines if the right key is currently being pushed
+        """
+        return raylibpy.is_key_down(raylibpy.KEY_RIGHT)
+
+    def is_up_pressed(self):
+        """
+        Determines if the up key is currently being pushed
+        """
+        return raylibpy.is_key_down(raylibpy.KEY_UP)
+
+    def is_down_pressed(self):
+        """
+        Determines if the down key is currently being pushed
+        """
+        return raylibpy.is_key_down(raylibpy.KEY_DOWN)
+
+    def window_should_close(self):
+        """
+        Determines if the user is trying to close the window
+        """
+        return raylibpy.window_should_close()
