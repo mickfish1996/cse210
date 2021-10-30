@@ -82,3 +82,6 @@ class Director:
 
     def handle_input_correct():
         pass
+
+    def destroy_word():
+        pass
