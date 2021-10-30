@@ -18,6 +18,7 @@ class Director:
         self._keep_playing = True
         self._inputs = WordInput()
         self._make_more = 0
+        self._count = 0
 
     def start_game(self):
         """Begins the game by pulling up the game window"""
@@ -45,10 +46,16 @@ class Director:
     def _do_updates(self):
         """Spawn in new words at random locations 
         on the right side of the screen"""
-        if self._make_more > 0: 
+
+        if self._make_more > 0 and self._count == 20: 
             word = Word()
             self._words.append(word)
             self._make_more -= 1
+        
+        if self._count == 20:
+            self._count = 0
+        else:
+            self._count += 1
 
         
         for word in self._words:
@@ -70,6 +77,7 @@ class Director:
     def _prepare_board(self):
         """Starts the game with 5 words"""
         self._make_more = 5
+        self._count = 20
         
 
     def handle_input_correct():
