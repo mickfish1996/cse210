@@ -21,3 +21,11 @@ class Word(Actor):
         self.set_position(position)
         velocity = Point(-1,0)
         self.set_velocity(velocity)
+        self.set_points(len(self.get_text()))
+
+    def get_points(self):
+        return self._point
+
+    def set_points(self, points):
+        self._point = points
+
