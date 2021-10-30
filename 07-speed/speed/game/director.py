@@ -46,7 +46,7 @@ class Director:
     def _do_updates(self):
         """Spawn in new words at random locations 
         on the right side of the screen"""
-
+        self.handle_input_correct()
         if self._make_more > 0 and self._count == 20: 
             word = Word()
             self._words.append(word)
@@ -57,9 +57,15 @@ class Director:
         else:
             self._count += 1
 
-        
+        count = 0
         for word in self._words:
+            
+            if word.get_position().get_x() == 0:
+                self.destroy_word(count)
+
+
             word.move_next()
+            count += 1
         
 
     def _do_outputs(self):
@@ -80,8 +86,17 @@ class Director:
         self._count = 20
         
 
-    def handle_input_correct():
-        pass
+    def handle_input_correct(self):
+        i = 0
+        while i < len(self._words):
+            if self._words[i].get_text() in self._inputs.get_text():
+                self.destroy_word(i)
+                self._inputs.reset_input()
+            else:
+                i += 1
 
-    def destroy_word():
-        pass
+
+
+    def destroy_word(self,num):
+        self._words.pop(num)
+        self._make_more += 1
