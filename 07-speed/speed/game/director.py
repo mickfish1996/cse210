@@ -90,9 +90,10 @@ class Director:
         i = 0
         while i < len(self._words):
             if self._words[i].get_text() in self._inputs.get_text():
+                self._score_board.add_points(self._words[i].get_points())
                 self.destroy_word(i)
                 self._inputs.reset_input()
-                self._score_board.add_points(self._words[i].get_points())
+                
             else:
                 i += 1
 
