@@ -30,9 +30,9 @@ class InputService:
         """
         result = ""
         event = raylibpy.get_key_pressed()
-        if self.is_enter_pressed():
+        if self._is_enter_pressed():
             event = 13
-        if self.is_esc_pressed():
+        if self._is_esc_pressed():
             event = 27
 
         assert type(event) is int
@@ -47,8 +47,8 @@ class InputService:
                 assert type(result) is str
         return result
 
-    def is_enter_pressed(self):
+    def _is_enter_pressed(self):
         return raylibpy.is_key_down(raylibpy.KEY_ENTER)
 
-    def is_esc_pressed(self):
+    def _is_esc_pressed(self):
         return raylibpy.is_key_down(raylibpy.KEY_ESCAPE)
