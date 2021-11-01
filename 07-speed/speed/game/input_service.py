@@ -30,14 +30,25 @@ class InputService:
         """
         result = ""
         event = raylibpy.get_key_pressed()
+        if self.is_enter_pressed():
+            event = 13
+        if self.is_esc_pressed():
+            event = 27
+
         assert type(event) is int
         
         if not event is None:
             if event == 27 or event == 96:
                 sys.exit()
-            elif event == 92 or event == 10: 
+            elif event == 13: 
                 result = "*"
             elif event >= 97 and event <= 122: 
                 result = chr(event)
                 assert type(result) is str
         return result
+
+    def is_enter_pressed(self):
+        return raylibpy.is_key_down(raylibpy.KEY_ENTER)
+
+    def is_esc_pressed(self):
+        return raylibpy.is_key_down(raylibpy.KEY_ESCAPE)
