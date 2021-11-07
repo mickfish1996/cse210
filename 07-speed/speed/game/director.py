@@ -97,7 +97,7 @@ class Director:
             else:
                 i += 1
 
-            if "*" in self._inputs.get_text():
+        if "*" in self._inputs.get_text():
                 self._inputs.reset_input()
 
 
