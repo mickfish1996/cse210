@@ -1,3 +1,5 @@
 from game.action import Action
 
-# TODO: Add your DrawActorsAction class here
+class Draw_actors_action(Action):
+    def __init__(self):
+        pass
