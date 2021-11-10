@@ -1,3 +1,6 @@
+import os
+os.environ['RAYLIB_BIN_PATH'] = '.'
+
 import random
 from game import constants
 from game.director import Director
