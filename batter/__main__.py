@@ -1,3 +1,6 @@
+import os
+os.environ['RAYLIB_BIN_PATH'] = '.'
+
 import random
 from game import constants
 from game.director import Director
@@ -10,13 +13,13 @@ from game.physics_service import PhysicsService
 from game.audio_service import AudioService
 
 # TODO: Add imports similar to the following when you create these classes
-# from game.brick import Brick
-# from game.ball import Ball
+from game.brick import Brick
+from game.ball import Ball
 # from game.paddle import Paddle
 # from game.control_actors_action import ControlActorsAction
 # from game.handle_collisions_action import HandleCollisionsAction
 # from game.handle_off_screen_action import HandleOffScreenAction
-# from game.move_actors_action import MoveActorsAction
+from game.move_actors_action import MoveActorsAction
 
 def main():
 
@@ -25,9 +28,19 @@ def main():
 
     cast["bricks"] = []
     # TODO: Create bricks here and add them to the list
+    brick_list = []
+    for row in range(7):
+        for column in range(14):
+            brick = Brick(row,column)
+            brick_list.append(brick)
+    cast["bricks"] = brick_list
 
     cast["balls"] = []
     # TODO: Create a ball here and add it to the list
+    ball = Ball()
+    ball_items = []
+    ball_items.append(ball)
+    cast["balls"] = ball_items
 
     cast["paddle"] = []
     # TODO: Create a paddle here and add it to the list
@@ -40,13 +53,14 @@ def main():
     output_service = OutputService()
     physics_service = PhysicsService()
     audio_service = AudioService()
-
+    
+    move_actors_action = MoveActorsAction()
     draw_actors_action = DrawActorsAction(output_service)
 
     # TODO: Create additional actions here and add them to the script
 
     script["input"] = []
-    script["update"] = []
+    script["update"] = [move_actors_action]
     script["output"] = [draw_actors_action]
 
 
