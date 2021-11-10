@@ -8,7 +8,7 @@ DEFAULT_SQUARE_SIZE = 20
 DEFAULT_FONT_SIZE = 20
 DEFAULT_TEXT_OFFSET = 4
 
-IMAGE_BRICK = os.path.join(os.getcwd(), "./assets/brick-3.png")
+IMAGE_BRICK = os.path.join(os.getcwd(), "./assets/brick-4.png")
 IMAGE_PADDLE = os.path.join(os.getcwd(), "./assets/bat.png")
 IMAGE_BALL = os.path.join(os.getcwd(), "./assets/ball.png")
 

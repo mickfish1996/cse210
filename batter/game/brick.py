@@ -13,14 +13,11 @@ class Brick(Actor):
     def _start_brick(self):
         self.set_image(constants.IMAGE_BRICK)
         
-        if self.row == 0:
-            y = 20
-        else:
-            y = 20 + ((constants.BRICK_HEIGHT + 5) * self.row)
-                      
-        if self.column == 0:
-            x = 20
-        else:
-            x = 20 + ((constants.BRICK_WIDTH + 5) * self.column)
+        y = 20 + ((constants.BRICK_HEIGHT + 5) * self.row)
+        x = 20 + ((constants.BRICK_WIDTH + 5) * self.column)
+        
         point = Point(x, y)
         self.set_position(point)
+        
+        self.set_height(constants.BRICK_HEIGHT)
+        self.set_width(constants.BRICK_WIDTH)

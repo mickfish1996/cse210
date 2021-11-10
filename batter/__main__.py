@@ -15,9 +15,9 @@ from game.audio_service import AudioService
 # TODO: Add imports similar to the following when you create these classes
 from game.brick import Brick
 from game.ball import Ball
-# from game.paddle import Paddle
-# from game.control_actors_action import ControlActorsAction
-# from game.handle_collisions_action import HandleCollisionsAction
+from game.paddle import Paddle
+from game.control_actors_action import ControlActorsAction
+from game.handle_collisions_action import HandleCollisionsAction
 # from game.handle_off_screen_action import HandleOffScreenAction
 from game.move_actors_action import MoveActorsAction
 
@@ -44,6 +44,10 @@ def main():
 
     cast["paddle"] = []
     # TODO: Create a paddle here and add it to the list
+    paddle = Paddle()
+    paddle_list = []
+    paddle_list.append(paddle)
+    cast["paddle"] = paddle_list
 
 
     # Create the script {key: tag, value: list}
@@ -54,19 +58,21 @@ def main():
     physics_service = PhysicsService()
     audio_service = AudioService()
     
+    control_actors_action = ControlActorsAction(input_service)
     move_actors_action = MoveActorsAction()
+    handle_collisions_action = HandleCollisionsAction(physics_service)
     draw_actors_action = DrawActorsAction(output_service)
 
     # TODO: Create additional actions here and add them to the script
 
-    script["input"] = []
-    script["update"] = [move_actors_action]
+    script["input"] = [control_actors_action]
+    script["update"] = [move_actors_action,handle_collisions_action]
     script["output"] = [draw_actors_action]
 
 
 
     # Start the game
-    output_service.open_window("Batter");
+    output_service.open_window("Batter")
     audio_service.start_audio()
     audio_service.play_sound(constants.SOUND_START)
     
