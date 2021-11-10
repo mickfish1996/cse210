@@ -67,7 +67,7 @@ def main():
     script["output"] = [draw_actors_action]
 
     # start the game
-    output_service.open_window("Robot Finds Kitten");
+    output_service.open_window("Robot Finds Kitten")
     director = Director(cast, script)
     director.start_game()
 

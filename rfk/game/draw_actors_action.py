@@ -9,8 +9,7 @@ class DrawActorsAction(Action):
     def execute(self, cast):
         self._output_service.clear_screen()
 
-        self._output_service.draw_actors(cast["artifact"])
-        self._output_service.draw_actors(cast["robot"])
-        self._output_service.draw_actors(cast["marquee"])
+        for group in cast:
+            self._output_service.draw_actors(cast[group])
 
         self._output_service.flush_buffer()
