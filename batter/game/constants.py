@@ -19,7 +19,7 @@ SOUND_OVER = os.path.join(os.getcwd(), "./assets/over.wav")
 BALL_X = MAX_X / 2
 BALL_Y = MAX_Y - 125
 
-BALL_DX = 8
+BALL_DX = 4
 BALL_DY = BALL_DX * -1
 
 PADDLE_X = MAX_X / 2
