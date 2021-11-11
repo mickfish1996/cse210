@@ -18,7 +18,7 @@ from game.ball import Ball
 from game.paddle import Paddle
 from game.control_actors_action import ControlActorsAction
 from game.handle_collisions_action import HandleCollisionsAction
-# from game.handle_off_screen_action import HandleOffScreenAction
+from game.handle_off_screen_action import HandleOffScreenAction
 from game.move_actors_action import MoveActorsAction
 
 def main():
@@ -58,6 +58,7 @@ def main():
     physics_service = PhysicsService()
     audio_service = AudioService()
     
+    handle_off_screen_action = HandleOffScreenAction()
     control_actors_action = ControlActorsAction(input_service)
     move_actors_action = MoveActorsAction()
     handle_collisions_action = HandleCollisionsAction(physics_service)
@@ -66,7 +67,7 @@ def main():
     # TODO: Create additional actions here and add them to the script
 
     script["input"] = [control_actors_action]
-    script["update"] = [move_actors_action,handle_collisions_action]
+    script["update"] = [move_actors_action,handle_collisions_action,handle_off_screen_action]
     script["output"] = [draw_actors_action]
 
 

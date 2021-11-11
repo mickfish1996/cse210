@@ -38,4 +38,17 @@ class HandleCollisionsAction(Action):
         if destroy >= 0:
             bricks.pop(destroy)
             
+        if self._physics_service.is_collision(ball, paddle):
+            paddle_x = paddle.get_position().get_x()
+            paddle_y = paddle.get_position().get_y()
+                
+            ball_x = ball.get_position().get_x()
+            ball_y = ball.get_position().get_y()
+                
+            if brick_x == ball_x:
+                ball_x = ball_x * - 1
+            if brick_y == ball_y:
+                ball_y = ball_y * -1
+            
+            
                 
