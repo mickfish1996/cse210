@@ -47,16 +47,13 @@ class HandleCollisionsAction(Action):
             bricks.pop(destroy)
             
         if self._physics_service.is_collision(ball, paddle):
-            paddle_x = paddle.get_position().get_x()
-            paddle_y = paddle.get_position().get_y()
+            ball_dx = ball.get_velocity().get_x()
+            ball_dy = ball.get_velocity().get_y()
                 
-            ball_x = ball.get_position().get_x()
-            ball_y = ball.get_position().get_y()
-                
-            if brick_x == ball_x:
-                ball_x = ball_x * - 1
-            if brick_y == ball_y:
-                ball_y = ball_y * -1
+            point = Point(ball_dx, ball_dy * -1)
+            ball.set_velocity(point)
+            
+            self._audio.play_sound(constants.SOUND_BOUNCE)
             
             
                 
