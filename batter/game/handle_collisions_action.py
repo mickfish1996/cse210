@@ -18,12 +18,12 @@ class HandleCollisionsAction(Action):
         ball = cast["balls"][0] # there's only one
         paddle = cast["paddle"][0] # there's only one
         bricks = cast["bricks"]
-        ball_dx = None
-        ball_dy = None
+        collision_count = 0
         destroy = -1
         for count in range(len(bricks)):
             if self._physics_service.is_collision(ball, bricks[count]):
                 destroy = count
+                collision_count += 1
 
                 self._audio.play_sound(constants.SOUND_BOUNCE)
 
@@ -36,10 +36,12 @@ class HandleCollisionsAction(Action):
                 ball_dy = ball.get_velocity().get_y()
                 
                 if brick_x == (ball_x + constants.BALL_WIDTH) or (brick_x + constants.BRICK_WIDTH) == ball_x:
-                    ball_dx *= - 1
+                    if collision_count < 2:
+                        ball_dx *= - 1
                 
                 if brick_y == (ball_y + constants.BALL_HEIGHT) or (brick_y + constants.BRICK_HEIGHT) == ball_y:
-                    ball_dy *= -1
+                    if collision_count < 2:
+                        ball_dy *= -1
 
                 point = Point(ball_dx, ball_dy)
                 ball.set_velocity(point)
