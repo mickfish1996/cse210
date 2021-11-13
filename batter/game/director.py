@@ -2,6 +2,8 @@ from time import sleep
 
 import raylibpy
 from game import constants
+from game.big_menu import BigMenu
+
 
 class Director:
     """A code template for a person who directs the game. The responsibility of 
@@ -25,9 +27,19 @@ class Director:
         self._cast = cast
         self._script = script
         self._keep_playing = True
+    
         
     def start_game(self):
         """Starts the game loop to control the sequence of play."""
+        keep_going = False
+        while  not keep_going:
+            self._cue_action("output")
+            keep_going = self._script["menu_input"][0].execute(self._cast["menu"])
+            if keep_going:
+                self._cast["menu"].pop(0)
+                self._cast["little_menu"].pop(0)
+
+
         while self._keep_playing:
             self._cue_action("input")
             self._cue_action("update")
@@ -52,3 +64,7 @@ class Director:
         """ 
         for action in self._script[tag]:
             action.execute(self._cast)
+
+
+
+        

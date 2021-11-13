@@ -5,7 +5,7 @@ MAX_Y = 600
 FRAME_RATE = 144
 
 DEFAULT_SQUARE_SIZE = 20
-DEFAULT_FONT_SIZE = 20
+DEFAULT_FONT_SIZE = 60
 DEFAULT_TEXT_OFFSET = 4
 
 IMAGE_BRICK = os.path.join(os.getcwd(), "./assets/brick-4.png")
