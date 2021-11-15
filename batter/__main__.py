@@ -21,6 +21,10 @@ from game.handle_collisions_action import HandleCollisionsAction
 from game.handle_off_screen_action import HandleOffScreenAction
 from game.move_actors_action import MoveActorsAction
 
+from game.big_menu import BigMenu
+from game.little_menu import LittleMenu
+from game.menu_input_action import MenuInputAction
+
 def main():
 
     # create the cast {key: tag, value: list}
@@ -49,6 +53,17 @@ def main():
     paddle_list.append(paddle)
     cast["paddle"] = paddle_list
 
+    big_menu = BigMenu()
+    big_menu_list = []
+    big_menu_list.append(big_menu)
+    cast["menu"] = big_menu_list
+
+    little_menu = LittleMenu()
+    menu_list = []
+    menu_list.append(little_menu)
+    cast["little_menu"] = menu_list
+
+
 
     # Create the script {key: tag, value: list}
     script = {}
@@ -63,12 +78,15 @@ def main():
     move_actors_action = MoveActorsAction()
     handle_collisions_action = HandleCollisionsAction(physics_service)
     draw_actors_action = DrawActorsAction(output_service)
+    menu_input_action = MenuInputAction(input_service)
 
     # TODO: Create additional actions here and add them to the script
 
     script["input"] = [control_actors_action]
     script["update"] = [handle_off_screen_action,move_actors_action,handle_collisions_action]
     script["output"] = [draw_actors_action]
+    script["menu_input"] = [menu_input_action]
+    
 
 
 

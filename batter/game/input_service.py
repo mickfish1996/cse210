@@ -60,3 +60,6 @@ class InputService:
 
     def window_should_close(self):
         return raylibpy.window_should_close()
+
+    def is_key_pressed(self):
+        return raylibpy.is_key_pressed(raylibpy.KEY_SPACE)

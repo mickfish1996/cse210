@@ -6,9 +6,10 @@ from game.audio_service import AudioService
 
 class HandleOffScreenAction(Action):
     def __init__(self):
-        self._audio = AudioService()
+        self.cast = None
     
     def execute(self, cast):
+        self.cast = cast
         paddle = cast["paddle"][0]
         ball = cast["balls"][0]
         self._is_ball_off(ball)
@@ -26,8 +27,7 @@ class HandleOffScreenAction(Action):
         if ball_y <= 1:
             ball_dy *= -1
         if ball_y >= constants.MAX_Y - 1:
-            self._audio.play_sound(constants.SOUND_OVER)
-            sys.exit()
+            self.cast["balls"].pop(0)
             
         point = Point(ball_dx, ball_dy)
         ball.set_velocity(point)
@@ -38,9 +38,9 @@ class HandleOffScreenAction(Action):
         paddle_dx = paddle.get_velocity().get_x()
         paddle_dy = paddle.get_velocity().get_y()
         
-        if (paddle_x <= 0 and paddle_dx < 0) or ((paddle_x + constants.PADDLE_WIDTH) >= constants.MAX_X and paddle_dx > 0):
+        if (paddle_x <= 1 and paddle_dx < 0) or ((paddle_x + paddle.get_width()) >= constants.MAX_X and paddle_dx > 0):
             paddle_dx = 0
-        if (paddle_y <= 1 and paddle_dy < 0) or ((paddle_y + constants.PADDLE_HEIGHT) >= constants.MAX_Y - 1 and paddle_dy > 0):
+        if (paddle_y <= 2 and paddle_dy < 0) or ((paddle_y + paddle.get_height()) >= constants.MAX_Y - 1 and paddle_dy > 0):
             paddle_dy = 0
             
         point = Point(paddle_dx,paddle_dy)
