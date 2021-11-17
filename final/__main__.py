@@ -12,3 +12,38 @@ from game.input_service import InputService
 from game.output_service import OutputService
 from game.physics_service import PhysicsService
 from game.audio_service import AudioService
+
+def main():
+    cast = {}
+
+    cast["solid_blocks"] = []
+    cast["power_ups"] = []
+    cast["blocks"] = []
+    cast["players"] = []
+
+
+    script = {}
+
+    input_service = InputService()
+    output_service = OutputService()
+    physics_service = PhysicsService()
+    audio_service = AudioService()
+
+    draw_actors_action = DrawActorsAction(output_service)
+
+    script["input"] = []
+    script["update"] = []
+    script["output"] = [draw_actors_action]
+    
+    output_service.open_window("BoomChamber")
+    # audio_service.start_audio()
+    # audio_service.play_sound(constants.SOUND_START)
+    
+    director = Director(cast, script)
+    director.start_game()
+
+    # audio_service.stop_audio()
+
+if __name__ == "__main__":
+    main()
+
