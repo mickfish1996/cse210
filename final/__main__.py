@@ -13,10 +13,17 @@ from game.output_service import OutputService
 from game.physics_service import PhysicsService
 from game.audio_service import AudioService
 
+from game.solid_blocks import SolidBlock
+
 def main():
     cast = {}
 
     cast["solid_blocks"] = []
+    solid_blocks = []
+    solid_block = SolidBlock()
+    solid_blocks.append(solid_block)
+    cast["solid_blocks"] = solid_blocks
+    
     cast["power_ups"] = []
     cast["blocks"] = []
     cast["players"] = []
