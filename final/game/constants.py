@@ -9,8 +9,8 @@ DEFAULT_FONT_SIZE = 60
 DEFAULT_TEXT_OFFSET = 4
 
 IMAGE_BLOCK = os.path.join(os.getcwd(), "./assets/block.png")
-IMAGE_PADDLE = os.path.join(os.getcwd(), "./assets/bat.png")
-IMAGE_BALL = os.path.join(os.getcwd(), "./assets/ball.png")
+IMAGE_PLAYER = os.path.join(os.getcwd(), "./assets/bat.png")
+#IMAGE_BALL = os.path.join(os.getcwd(), "./assets/ball.png")
 
 SOUND_START = os.path.join(os.getcwd(), "./assets/start.wav")
 SOUND_BOUNCE = os.path.join(os.getcwd(), "./assets/boing.wav")

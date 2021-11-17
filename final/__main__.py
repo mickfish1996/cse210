@@ -36,13 +36,13 @@ def main():
     script["output"] = [draw_actors_action]
     
     output_service.open_window("BoomChamber")
-    # audio_service.start_audio()
-    # audio_service.play_sound(constants.SOUND_START)
+    audio_service.start_audio()
+    audio_service.play_sound(constants.SOUND_START)
     
     director = Director(cast, script)
     director.start_game()
 
-    # audio_service.stop_audio()
+    audio_service.stop_audio()
 
 if __name__ == "__main__":
     main()
