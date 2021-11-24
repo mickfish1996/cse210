@@ -18,7 +18,7 @@ class HandleOffScreenAction(Action):
     def _is_ball_off(self, ball):
         ball_x = ball.get_position().get_x()
         ball_y = ball.get_position().get_y()
-        # print(ball_y)
+        #print(ball_x)
         ball_dx = ball.get_velocity().get_x()
         ball_dy = ball.get_velocity().get_y()
         
@@ -28,6 +28,9 @@ class HandleOffScreenAction(Action):
             ball_dy *= -1
         if ball_y >= constants.MAX_Y - 1:
             self.cast["balls"].pop(0)
+            
+        velocity = Point(ball_dx,ball_dy)
+        ball.set_velocity(velocity)
         
     
     def _is_paddle_off(self, paddle):
