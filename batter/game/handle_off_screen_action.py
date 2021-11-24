@@ -26,7 +26,7 @@ class HandleOffScreenAction(Action):
             ball_dx *= -1
         if ball_y <= 5:
             ball_dy *= -1
-        if ball_y >= constants.MAX_Y - 1:
+        if ball_y >= constants.MAX_Y - 5:
             self.cast["balls"].pop(0)
             
         velocity = Point(ball_dx,ball_dy)

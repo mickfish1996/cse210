@@ -29,24 +29,13 @@ class HandleCollisionsAction(Action):
 
                     self._audio.play_sound(constants.SOUND_BOUNCE)
 
-                    brick_x = bricks[count].get_position().get_x()
-                    brick_y = bricks[count].get_position().get_y()
-                    
-                    ball_x = ball.get_position().get_x()
-                    ball_y = ball.get_position().get_y()
                     ball_dx = ball.get_velocity().get_x()
                     ball_dy = ball.get_velocity().get_y()
                     
-                    if brick_x == (ball_x + constants.BALL_WIDTH) or (brick_x + constants.BRICK_WIDTH) == ball_x:
-                        if collision_count < 2:
-                            ball_dx *= - 1
                     
-                    if brick_y == (ball_y + constants.BALL_HEIGHT) or (brick_y + constants.BRICK_HEIGHT) == ball_y:
-                        if collision_count < 2:
-                            ball_dy *= -1
-
-                    point = Point(ball_dx, ball_dy)
-                    ball.set_velocity(point)
+                    if collision_count < 2:
+                        point = Point(ball_dx, ball_dy * -1)
+                        ball.set_velocity(point)
             if destroy >= 0:
                 bricks.pop(destroy)
                 
