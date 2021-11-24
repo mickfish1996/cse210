@@ -2,7 +2,7 @@ import os
 
 MAX_X = 800
 MAX_Y = 600
-FRAME_RATE = 144
+FRAME_RATE = 30
 
 DEFAULT_SQUARE_SIZE = 20
 DEFAULT_FONT_SIZE = 60
@@ -19,7 +19,7 @@ SOUND_OVER = os.path.join(os.getcwd(), "./assets/over.wav")
 BALL_X = MAX_X / 2
 BALL_Y = MAX_Y - 125
 
-BALL_DX = 1
+BALL_DX = 8
 BALL_DY = BALL_DX * -1
 
 PADDLE_X = MAX_X / 2
@@ -30,7 +30,7 @@ BRICK_HEIGHT = 24
 
 BRICK_SPACE = 5
 
-PADDLE_SPEED = 3
+PADDLE_SPEED = 15
 
 PADDLE_WIDTH = 96
 PADDLE_HEIGHT = 24

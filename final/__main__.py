@@ -20,8 +20,10 @@ def main():
 
     cast["solid_blocks"] = []
     solid_blocks = []
-    solid_block = SolidBlock()
-    solid_blocks.append(solid_block)
+    for row in range(6):
+        for column in range(8):
+            solid_block = SolidBlock(row,column)
+            solid_blocks.append(solid_block)
     cast["solid_blocks"] = solid_blocks
     
     cast["power_ups"] = []

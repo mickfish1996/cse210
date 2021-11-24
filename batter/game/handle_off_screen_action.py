@@ -24,13 +24,11 @@ class HandleOffScreenAction(Action):
         
         if ball_x <= 0 or (ball_x + ball.get_width()) >= constants.MAX_X:
             ball_dx *= -1
-        if ball_y <= 1:
+        if ball_y <= 5:
             ball_dy *= -1
         if ball_y >= constants.MAX_Y - 1:
             self.cast["balls"].pop(0)
-            
-        point = Point(ball_dx, ball_dy)
-        ball.set_velocity(point)
+        
     
     def _is_paddle_off(self, paddle):
         paddle_x = paddle.get_position().get_x()
