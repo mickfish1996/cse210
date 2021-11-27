@@ -14,6 +14,9 @@ from game.physics_service import PhysicsService
 from game.audio_service import AudioService
 
 from game.solid_blocks import SolidBlock
+from game.player import Player
+from game.control_actors_action import ControlActorsAction
+from game.move_actors_action import MoveActorsAction
 
 def main():
     cast = {}
@@ -28,7 +31,12 @@ def main():
     
     cast["power_ups"] = []
     cast["blocks"] = []
+    
     cast["players"] = []
+    players = []
+    player = Player()
+    players.append(player)
+    cast["players"] = players
 
 
     script = {}
@@ -39,9 +47,11 @@ def main():
     audio_service = AudioService()
 
     draw_actors_action = DrawActorsAction(output_service)
+    control_actors_action = ControlActorsAction(input_service)
+    move_actors_action = MoveActorsAction()
 
-    script["input"] = []
-    script["update"] = []
+    script["input"] = [control_actors_action]
+    script["update"] = [move_actors_action]
     script["output"] = [draw_actors_action]
     
     output_service.open_window("BoomChamber")
