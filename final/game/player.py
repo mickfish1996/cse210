@@ -6,6 +6,7 @@ class Player(Actor):
     def __init__(self):
         super().__init__()
         self._start_player()
+        self.color = "BLUE"
         
     def _start_player(self):
         x = constants.MAX_X - 30
@@ -15,4 +16,7 @@ class Player(Actor):
         
         self.set_height(20)
         self.set_width(20)
+        
+    def get_color(self):
+        return self.color
         
