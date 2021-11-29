@@ -54,7 +54,7 @@ def main():
     script["update"] = [move_actors_action]
     script["output"] = [draw_actors_action]
     
-    output_service.open_window("BoomChamber")
+    output_service.open_window("Boom Chamber")
     audio_service.start_audio()
     audio_service.play_sound(constants.SOUND_START)
     
