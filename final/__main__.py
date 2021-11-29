@@ -53,7 +53,7 @@ def main():
     handle_collision_action = HandleCollisionsAction(physics_service)
 
     script["input"] = [control_actors_action]
-    script["update"] = [handle_collision_action,move_actors_action]
+    script["update"] = [handle_collision_action, move_actors_action]
     script["output"] = [draw_actors_action]
     
     output_service.open_window("Boom Chamber")

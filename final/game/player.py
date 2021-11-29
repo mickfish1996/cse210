@@ -9,8 +9,8 @@ class Player(Actor):
         self.color = "BLUE"
         
     def _start_player(self):
-        x = constants.MAX_X - 30
-        y = constants.MAX_Y - 30
+        x = constants.MAX_X - 40
+        y = constants.MAX_Y - 40
         position = Point(x,y)
         self.set_position(position)
         

@@ -40,7 +40,7 @@ class OutputService:
         """
         Draws at rectangular box with the provided specifications.
         """
-        if width == 50:
+        if color == "GRAY":
             raylibpy.draw_rectangle(x, y, width, height, raylibpy.GRAY)
         else:
             raylibpy.draw_rectangle(x, y, width, height, raylibpy.BLUE)
