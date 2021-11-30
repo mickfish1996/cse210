@@ -28,12 +28,16 @@ class HandleCollisionsAction(Action):
                 dx = player.get_velocity().get_x()
                 dy = player.get_velocity().get_y()
                 
-                if ((player_x + player.get_width()) == block_x) and dx > 0:
+                if (((player_x + player.get_width()) == block_x or player_x == (block_x + block.get_width()))
+                   and ((player_y + player.get_height()) == block_y or player_y == (block_y + block.get_height()))):
+                   dx = dx
+                   dy = dy
+                elif ((player_x + player.get_width()) == block_x) and dx > 0:
                     dx = 0
                 elif player_x == (block_x + block.get_width()) and dx < 0:
                     dx = 0
                     
-                if (player_y + player.get_height()) == block_y and dy > 0:
+                elif (player_y + player.get_height()) == block_y and dy > 0:
                     dy = 0
                     
                 elif player_y == (block_y + block.get_height()) and dy < 0:
