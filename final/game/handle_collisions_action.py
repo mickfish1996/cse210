@@ -10,9 +10,13 @@ class HandleCollisionsAction(Action):
         
     def execute(self, cast):
         player = cast["players"][0]
-        blocks = cast["solid_blocks"]
+        solid_blocks = cast["solid_blocks"]
+        blocks = cast["blocks"]
 
-        
+        self.compare_blocks(solid_blocks, player)
+        self.compare_blocks(blocks, player)
+
+    def compare_blocks(self, blocks, player):   
         for block in blocks:
             if self._physics_service.is_collision(player, block):
                 block_x = block.get_position().get_x()

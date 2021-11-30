@@ -14,6 +14,7 @@ from game.physics_service import PhysicsService
 from game.audio_service import AudioService
 
 from game.solid_blocks import SolidBlock
+from game.block import Block
 from game.player import Player
 from game.control_actors_action import ControlActorsAction
 from game.move_actors_action import MoveActorsAction
@@ -33,6 +34,46 @@ def main():
     
     cast["power_ups"] = []
     cast["blocks"] = []
+    blocks = []
+    for row in range(13):
+        for column in range(17):
+            block = Block()
+            x = column * constants.BLOCK_WIDTH
+            y = row * constants.BLOCK_HEIGHT
+            position = Point(x,y)
+            block.set_position(position)
+            taken = False
+            for solid in cast["solid_blocks"]:
+                solid_x = solid.get_position().get_x()
+                solid_y = solid.get_position().get_y()
+                block_x = block.get_position().get_x()
+                block_y = block.get_position().get_y()
+                if solid_x == block_x and solid_y == block_y:
+                    taken = True
+            if taken == False:
+                blocks.append(block)
+    count = 0
+    while count < len(blocks):
+        x = blocks[count].get_position().get_x()
+        y = blocks[count].get_position().get_y()
+        
+
+        if ((x == 0 or x == 50 or x == constants.MAX_X - 50 or x == constants.MAX_X - 100)
+             and (y == (constants.MAX_Y - 50) or y == (constants.MAX_Y - 100))):
+            
+            blocks.pop(count)
+
+        else:
+            count += 1
+
+    for count in range(60):
+        num = random.randint(0, len(blocks) - 1)
+        blocks.pop(num)
+    
+    cast["blocks"] = blocks
+
+    
+
     
     cast["players"] = []
     players = []
