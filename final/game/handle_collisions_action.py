@@ -17,7 +17,7 @@ class HandleCollisionsAction(Action):
         self._compare_blocks(solid_blocks, player)
         self._compare_blocks(blocks, player)
         self._collide_solid(solid_blocks, explosion)
-        # self._collide_block(blocks,explosion)
+        self._collide_block(cast,explosion,blocks)
         
 
     def _compare_blocks(self, blocks, player):   
@@ -65,9 +65,9 @@ class HandleCollisionsAction(Action):
                             exp_y = explosions[count].get_position().get_y()
                             
                             if explosions[count].get_count() == 1:
-                                edit = (explosions[count].get_width() - 50) // 2
+                                edit = (explosions[count].get_width() - 40) // 2
                                 exp_x += edit
-                                explosions[count].set_position(Point(exp_x + 5,exp_y))
+                                explosions[count].set_position(Point(exp_x,exp_y))
                                 explosions[count].set_width(40)
                                 
                         elif count == 1:
@@ -76,9 +76,25 @@ class HandleCollisionsAction(Action):
                             exp_y = explosions[count].get_position().get_y()
                             
                             if explosions[count].get_count() == 1:
-                                edit = (explosions[count].get_height() - 50) // 2
+                                edit = (explosions[count].get_height() - 40) // 2
                                 exp_y += edit
-                                explosions[count].set_position(Point(exp_x,exp_y + 5))
+                                explosions[count].set_position(Point(exp_x,exp_y))
                                 explosions[count].set_height(40)
                                 
+    def _collide_block(self,cast,explosions,blocks):
+        pass
+        if len(explosions) > 0:
+            for count in range(2):
+                remove = 0
+                for block in range(len(blocks) - 1):
+                    if self._physics_service.is_collision(explosions[count], blocks[block]):
+                        if count == 0:
+                            b_x = blocks[block].get_position().get_x()
+                            e_x = explosions[count].get_position().get_x()
+                            e_y = explosions[count].get_position().get_y()
                             
+                            if explosions[count].get_count() == 1:
+                                if b_x < (e_x + (explosions[count].get_width() - 40 // 2)):
+                                    remove += 1
+                    
+                                        
