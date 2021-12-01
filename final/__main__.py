@@ -86,6 +86,7 @@ def main():
     cast["players"] = players
 
     cast["bomb"] = []
+    cast["explosion"] = []
 
 
     script = {}
