@@ -85,16 +85,33 @@ class HandleCollisionsAction(Action):
         pass
         if len(explosions) > 0:
             for count in range(2):
-                remove = 0
-                for block in range(len(blocks) - 1):
-                    if self._physics_service.is_collision(explosions[count], blocks[block]):
+                remove_b = 0
+                shrink = 0
+                for block in range(len(cast["blocks"]) - 1):
+                    if self._physics_service.is_collision(explosions[count], cast["blocks"][block]):
+                        shrink += 1
                         if count == 0:
-                            b_x = blocks[block].get_position().get_x()
+                            b_x = cast["blocks"][block].get_position().get_x()
                             e_x = explosions[count].get_position().get_x()
                             e_y = explosions[count].get_position().get_y()
-                            
                             if explosions[count].get_count() == 1:
                                 if b_x < (e_x + (explosions[count].get_width() - 40 // 2)):
-                                    remove += 1
+                                    print("here")
+                                    remove_b = block
+                                    shrink += 1                                    
+                
+                if shrink > 1:
+                    explosions[count].set_width(explosions[count].get_width() - 50)
+                    b_x = blocks[remove_b + 1].get_position().get_x()
+                    e_x = explosions[count].get_position().get_x()
+                    e_y = explosions[count].get_position().get_y()
+                    
+                    e_x = b_x +5
+                    
+                    explosions[count].set_position(Point(e_x,e_y))
+                                   
+                                    
+                    cast["blocks"].pop(remove_b + 1)
+                    
                     
                                         
