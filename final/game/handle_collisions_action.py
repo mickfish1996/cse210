@@ -12,11 +12,15 @@ class HandleCollisionsAction(Action):
         player = cast["players"][0]
         solid_blocks = cast["solid_blocks"]
         blocks = cast["blocks"]
+        explosion = cast["explosion"]
 
-        self.compare_blocks(solid_blocks, player)
-        self.compare_blocks(blocks, player)
+        self._compare_blocks(solid_blocks, player)
+        self._compare_blocks(blocks, player)
+        self._collide_solid(solid_blocks, explosion)
+        # self._collide_block(blocks,explosion)
+        
 
-    def compare_blocks(self, blocks, player):   
+    def _compare_blocks(self, blocks, player):   
         for block in blocks:
             if self._physics_service.is_collision(player, block):
                 block_x = block.get_position().get_x()
@@ -47,4 +51,34 @@ class HandleCollisionsAction(Action):
                 
                 v = Point(dx, dy)
                 player.set_velocity(v)
-                    
+    
+    def _collide_solid(self,blocks, explosions):
+        if len(explosions) > 0:
+            for count in range(2):           
+                for block in blocks:
+                    if self._physics_service.is_collision(explosions[count], block):
+                        if count == 0:
+                            block_x = block.get_position().get_x()
+                        
+                            exp_x = explosions[count].get_position().get_x()
+                            
+                            exp_y = explosions[count].get_position().get_y()
+                            
+                            if explosions[count].get_count() == 1:
+                                edit = (explosions[count].get_width() - 50) // 2
+                                exp_x += edit
+                                explosions[count].set_position(Point(exp_x + 5,exp_y))
+                                explosions[count].set_width(40)
+                                
+                        elif count == 1:
+                            block_y = block.get_position().get_y()
+                            exp_x = explosions[count].get_position().get_x()
+                            exp_y = explosions[count].get_position().get_y()
+                            
+                            if explosions[count].get_count() == 1:
+                                edit = (explosions[count].get_height() - 50) // 2
+                                exp_y += edit
+                                explosions[count].set_position(Point(exp_x,exp_y + 5))
+                                explosions[count].set_height(40)
+                                
+                            

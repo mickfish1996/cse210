@@ -44,14 +44,14 @@ class HandleBombAction(Action):
             explosion = Explosion()
             if count == 0:
                 x -= 100
-                explosion.set_position(Point(x,y))
+                explosion.set_position(Point(x,y + 5))
                 explosion.set_width(250)
-                explosion.set_height(50)
+                explosion.set_height(40)
 
             elif count == 1:
                 y -= 100
-                explosion.set_position(Point(x,y))
-                explosion.set_width(50)
+                explosion.set_position(Point(x + 5, y))
+                explosion.set_width(40)
                 explosion.set_height(250)
             cast["explosion"].append(explosion)
 
