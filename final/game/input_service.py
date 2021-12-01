@@ -46,6 +46,10 @@ class InputService:
         direction = Point(dx, dy)
         return direction
 
+    def drop_bomb(self):
+        return self.is_key_pressed()
+            
+
     def is_left_pressed(self):
         return raylibpy.is_key_down(raylibpy.KEY_LEFT)
 

@@ -20,20 +20,9 @@ from game.control_actors_action import ControlActorsAction
 from game.move_actors_action import MoveActorsAction
 from game.handle_collisions_action import HandleCollisionsAction
 from game.handle_off_screen_action import HandleOffScreenAction
+from game.handle_bomb_action import HandleBombAction
 
-def main():
-    cast = {}
-
-    cast["solid_blocks"] = []
-    solid_blocks = []
-    for row in range(6):
-        for column in range(8):
-            solid_block = SolidBlock(row,column)
-            solid_blocks.append(solid_block)
-    cast["solid_blocks"] = solid_blocks
-    
-    cast["power_ups"] = []
-    cast["blocks"] = []
+def set_blocks(cast):
     blocks = []
     for row in range(13):
         for column in range(17):
@@ -70,16 +59,33 @@ def main():
         num = random.randint(0, len(blocks) - 1)
         blocks.pop(num)
     
+    return blocks
+
+
+
+def main():
+    cast = {}
+
+    cast["solid_blocks"] = []
+    solid_blocks = []
+    for row in range(6):
+        for column in range(8):
+            solid_block = SolidBlock(row,column)
+            solid_blocks.append(solid_block)
+    cast["solid_blocks"] = solid_blocks
+    
+    cast["power_ups"] = []
+    cast["blocks"] = []
+    blocks = set_blocks(cast)
     cast["blocks"] = blocks
-
-    
-
-    
+  
     cast["players"] = []
     players = []
     player = Player()
     players.append(player)
     cast["players"] = players
+
+    cast["bomb"] = []
 
 
     script = {}
@@ -94,9 +100,10 @@ def main():
     move_actors_action = MoveActorsAction()
     handle_collision_action = HandleCollisionsAction(physics_service)
     handle_off_screen = HandleOffScreenAction()
+    handle_bomb_action = HandleBombAction(control_actors_action)
 
     script["input"] = [control_actors_action]
-    script["update"] = [handle_off_screen,handle_collision_action, move_actors_action]
+    script["update"] = [handle_off_screen, handle_bomb_action, handle_collision_action, move_actors_action]
     script["output"] = [draw_actors_action]
     
     output_service.open_window("Boom Chamber")
@@ -110,4 +117,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 

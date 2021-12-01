@@ -16,7 +16,7 @@ SOUND_START = os.path.join(os.getcwd(), "./assets/start.wav")
 SOUND_BOUNCE = os.path.join(os.getcwd(), "./assets/boing.wav")
 SOUND_OVER = os.path.join(os.getcwd(), "./assets/over.wav")
 
-PLAYER_SPEED = 10
+PLAYER_SPEED = 5
 
 PADDLE_X = MAX_X // 2
 PADDLE_Y = MAX_Y - 25
