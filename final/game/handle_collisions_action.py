@@ -87,31 +87,86 @@ class HandleCollisionsAction(Action):
             for count in range(2):
                 remove_b = 0
                 shrink = 0
-                for block in range(len(cast["blocks"]) - 1):
+                for block in range(len(cast["blocks"])):
                     if self._physics_service.is_collision(explosions[count], cast["blocks"][block]):
-                        shrink += 1
+                        
+                        b_x = cast["blocks"][block].get_position().get_x()
+                        b_y = cast["blocks"][block].get_position().get_y()
+                        e_x = explosions[count].get_position().get_x()
+                        e_y = explosions[count].get_position().get_y()
+                        
                         if count == 0:
-                            b_x = cast["blocks"][block].get_position().get_x()
-                            e_x = explosions[count].get_position().get_x()
-                            e_y = explosions[count].get_position().get_y()
+                            
                             if explosions[count].get_count() == 1:
-                                if b_x < (e_x + (explosions[count].get_width() - 40 // 2)):
-                                    print("here")
+                                if b_x < (e_x + (explosions[count].get_width() - 45 // 2)):
                                     remove_b = block
-                                    shrink += 1                                    
-                
-                if shrink > 1:
-                    explosions[count].set_width(explosions[count].get_width() - 50)
-                    b_x = blocks[remove_b + 1].get_position().get_x()
+                                    shrink += 1   
+                        if count == 1:
+                            if explosions[count].get_count() == 1:
+                                if b_y < (e_y + (explosions[count].get_height() - 45 // 2)):
+                                    remove_b = block
+                                    shrink += 1   
+                                                                    
+                if shrink > 1 and count == 1:
+                    explosions[count].set_height(explosions[count].get_height() - 50)
+                    b_y = blocks[remove_b].get_position().get_y()
                     e_x = explosions[count].get_position().get_x()
                     e_y = explosions[count].get_position().get_y()
                     
-                    e_x = b_x +5
+                    e_y = b_y +5
+                
                     
                     explosions[count].set_position(Point(e_x,e_y))
                                    
                                     
-                    cast["blocks"].pop(remove_b + 1)
+                    cast["blocks"].pop(remove_b)
+                    
+                if shrink == 1 and count == 1:
+                    b_y = blocks[remove_b].get_position().get_y()
+                    e_x = explosions[count].get_position().get_x()
+                    e_y = explosions[count].get_position().get_y()
+                    
+                    distance = b_y - e_y
+                    if distance > 40:
+                        e_y = b_y + 5
+                        explosions[count].set_position(Point(e_x,e_y))
+                        explosions[count].set_height(explosions[count].get_height() - 50)
+                        cast["blocks"].pop(remove_b)
+                    else:
+                        cast["blocks"].pop(remove_b)
+                    
+                if shrink > 1 and count == 0:
+                    explosions[count].set_width(explosions[count].get_width() - 50)
+                    b_x = blocks[remove_b].get_position().get_x()
+                    e_x = explosions[count].get_position().get_x()
+                    e_y = explosions[count].get_position().get_y()
+                    
+                    e_x = b_x +5
+                
+                    
+                    explosions[count].set_position(Point(e_x,e_y))
+                                   
+                                    
+                    cast["blocks"].pop(remove_b)
+                    
+                if shrink == 1 and count == 0:
+                    b_x = blocks[remove_b].get_position().get_x()
+                    e_x = explosions[count].get_position().get_x()
+                    e_y = explosions[count].get_position().get_y()
+                    
+                    distance = b_x - e_x
+                    if distance > 40:
+                        e_x = b_x + 5
+                        explosions[count].set_position(Point(e_x,e_y))
+                        explosions[count].set_width(explosions[count].get_width() - 50)
+                        cast["blocks"].pop(remove_b)
+                    else:
+                        cast["blocks"].pop(remove_b)
+                    
+                        
+                    
+                    
+                    
                     
                     
                                         
