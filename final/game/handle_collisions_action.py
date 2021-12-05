@@ -115,10 +115,10 @@ class HandleCollisionsAction(Action):
                                     remove_b = block
                                     shrink += 1   
                                     
-                                # else: 
-                                #     handle_up += 1 
-                                #     if handle_up == 1:
-                                #         remove_b = block 
+                                elif b_x > (e_x + ((explosions[count].get_width() - 40) // 2)): 
+                                    handle_up += 1 
+                                    if handle_up == 1:
+                                        remove_b = block 
                         if count == 1:
                             if explosions[count].get_count() == 1:
                                 if b_y < (e_y + ((explosions[count].get_height() - 45) // 2)):
