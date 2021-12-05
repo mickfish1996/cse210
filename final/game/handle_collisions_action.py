@@ -19,7 +19,10 @@ class HandleCollisionsAction(Action):
         self._collide_solid(solid_blocks, explosion)
         self._collide_block(cast,explosion,blocks)
         
-
+    # This method is used to determine where on the board the player is allowed to
+    # go. If there is a block where they want to go than their velocity gets set
+    # to zero, if they are at a corner than the player is allowed to either go up
+    # of down
     def _compare_blocks(self, blocks, player):   
         for block in blocks:
             if self._physics_service.is_collision(player, block):
@@ -51,7 +54,11 @@ class HandleCollisionsAction(Action):
                 
                 v = Point(dx, dy)
                 player.set_velocity(v)
-    
+
+    # This method will handle the collions between the explosion and
+    # the blocks that cannot be removed. if it hits a block that cannot
+    # break than the position changes to the location of the center of 
+    # the explosion and you can no longer see it.
     def _collide_solid(self,blocks, explosions):
         if len(explosions) > 0:
             for count in range(2):           
@@ -80,7 +87,10 @@ class HandleCollisionsAction(Action):
                                 exp_y += edit
                                 explosions[count].set_position(Point(exp_x,exp_y))
                                 explosions[count].set_height(40)
-                                
+
+    # This function Will handle the collisions between the explosion and the
+    # Blocks can can be removed from the screen, it will then adjust the 
+    # position of the explostion along with its hight and width.                            
     def _collide_block(self,cast,explosions,blocks):
         pass
         if len(explosions) > 0:
@@ -103,7 +113,7 @@ class HandleCollisionsAction(Action):
                                     print(f"center Block: {e_x + ((explosions[count].get_width() - 40) // 2)}")
                                     remove_b = block
                                     shrink += 1   
-                        if count == 1:
+                        elif count == 1:
                             if explosions[count].get_count() == 1:
                                 if b_y < (e_y + ((explosions[count].get_height() - 45) // 2)):
                                     print(f"b_y: {b_y}")
