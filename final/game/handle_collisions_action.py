@@ -98,12 +98,16 @@ class HandleCollisionsAction(Action):
                         if count == 0:
                             
                             if explosions[count].get_count() == 1:
-                                if b_x < (e_x + (explosions[count].get_width() - 45 // 2)):
+                                if b_x < (e_x + ((explosions[count].get_width() - 45) // 2)):
+                                    print(f"b_x: {b_x}")
+                                    print(f"center Block: {e_x + ((explosions[count].get_width() - 40) // 2)}")
                                     remove_b = block
                                     shrink += 1   
                         if count == 1:
                             if explosions[count].get_count() == 1:
-                                if b_y < (e_y + (explosions[count].get_height() - 45 // 2)):
+                                if b_y < (e_y + ((explosions[count].get_height() - 45) // 2)):
+                                    print(f"b_y: {b_y}")
+                                    print(f"center block: {e_y + ((explosions[count].get_height() - 40) // 2)}")
                                     remove_b = block
                                     shrink += 1   
                                                                     
