@@ -4,7 +4,7 @@ from game import constants
 
 class HandleOffScreenAction(Action):
     def execute(self, cast):
-        for i in range(2):
+        for i in range(len(cast["players"])):
             player = cast["players"][i]
             
             x = player.get_position().get_x()

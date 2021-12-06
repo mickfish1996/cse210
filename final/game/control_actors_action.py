@@ -9,7 +9,7 @@ class ControlActorsAction(Action):
         self._bomb_count = 1
         
     def execute(self, cast):
-        for num in range(2):
+        for num in range(len(cast["players"])):
             if num == 0:
                 direction = self.input_service.get_direction_1()
             if num == 1:
@@ -17,7 +17,7 @@ class ControlActorsAction(Action):
                 
             player = cast["players"][num]
             player.set_velocity(direction.scale(constants.PLAYER_SPEED))
-            if self.input_service.drop_bomb(num) and self._bomb_count > 0:
+            if self.input_service.drop_bomb(num) and player.get_count() > 0:
                 bomb = Bomb(num)
                 bomb.set_position(player.get_position())
                 player.set_count(-1)

@@ -13,13 +13,27 @@ class HandleCollisionsAction(Action):
         solid_blocks = cast["solid_blocks"]
         blocks = cast["blocks"]
         explosion = cast["explosion"]
-        for i in range(2):
+        kill_p = 0
+        for i in range(len(cast["players"])):
             player = cast["players"][i]
             self._compare_blocks(solid_blocks, player)
             self._compare_blocks(blocks, player)
+            kill_player = self._compare_explosion(explosion,player)
+            if kill_player:
+                kill_p = i
+                
+        if kill_player:
+                cast["players"].pop(kill_p)
         self._collide_solid(solid_blocks, explosion)
         self._collide_block(cast,explosion,blocks)
-        
+    
+    def _compare_explosion(self, explosion, player):
+            for exp in range(len(explosion)):
+                if self._physics_service.is_collision(player, explosion[exp]):
+                    return True
+                else:
+                    return False
+                    
     # This method is used to determine where on the board the player is allowed to
     # go. If there is a block where they want to go than their velocity gets set
     # to zero, if they are at a corner than the player is allowed to either go up
