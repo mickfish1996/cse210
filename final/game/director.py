@@ -33,7 +33,11 @@ class Director:
         while self._keep_playing:
             self._cue_action("input")
             self._cue_action("update")
+            
             self._cue_action("output")
+            
+            if len(self._cast["players"]) == 1:
+                self._keep_playing = False
 
             # TODO: Add some logic like the following to handle game over conditions
 
