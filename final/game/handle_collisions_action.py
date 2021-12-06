@@ -14,15 +14,18 @@ class HandleCollisionsAction(Action):
         blocks = cast["blocks"]
         explosion = cast["explosion"]
         kill_p = 0
+        kill = False
         for i in range(len(cast["players"])):
             player = cast["players"][i]
             self._compare_blocks(solid_blocks, player)
             self._compare_blocks(blocks, player)
             kill_player = self._compare_explosion(explosion,player)
             if kill_player:
+                kill = True
                 kill_p = i
                 
-        if kill_player:
+                
+        if kill:
                 cast["players"].pop(kill_p)
         self._collide_solid(solid_blocks, explosion)
         self._collide_block(cast,explosion,blocks)

@@ -1,4 +1,5 @@
 from game.actor import Actor
+from game import constants
 
 class Bomb(Actor):
     def __init__(self, player_num):
@@ -8,6 +9,7 @@ class Bomb(Actor):
         self.set_height(15)
         self.set_width(15)
         self._player_num = player_num
+        self.set_image(constants.IMAGE_BOMB)
 
     def get_color(self):
         return self._color

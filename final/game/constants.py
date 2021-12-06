@@ -10,6 +10,7 @@ DEFAULT_TEXT_OFFSET = 4
 
 IMAGE_BLOCK = os.path.join(os.getcwd(), "./assets/block1.png")
 IMAGE_PLAYER = os.path.join(os.getcwd(), "./assets/bat.png")
+IMAGE_BOMB = os.path.join(os.getcwd(), "./assets/tnt.png")
 
 
 SOUND_START = os.path.join(os.getcwd(), "./assets/start.wav")
