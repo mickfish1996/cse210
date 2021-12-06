@@ -18,8 +18,8 @@ class HandleBombAction(Action):
                 count = bombs[bomb].get_count()
                 if count == 60:
                     self._create_explosion(cast,cast["bomb"][bomb])
+                    cast["players"][cast["bomb"][bomb].get_player_num()].set_count(1)
                     cast["bomb"].pop(bomb)
-                    self._control.set_count(1)
 
                 else:
                     bombs[bomb].set_count(count + 1)

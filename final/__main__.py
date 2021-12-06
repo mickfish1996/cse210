@@ -81,8 +81,24 @@ def main():
   
     cast["players"] = []
     players = []
-    player = Player()
-    players.append(player)
+    for i in range(2):
+        
+        player = Player()
+        if i == 0:
+            x = constants.MAX_X - 40
+            y = constants.MAX_Y - 40
+            position = Point(x,y)
+            player.set_position(position)
+            
+        elif i == 1:
+            x = 40
+            y = constants.MAX_Y - 40
+            position = Point(x,y)
+            player.set_position(position)
+            player.set_color("YELLOW")
+            
+        players.append(player)
+        print(len(players))
     cast["players"] = players
 
     cast["bomb"] = []

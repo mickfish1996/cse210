@@ -9,13 +9,14 @@ class HandleCollisionsAction(Action):
         
         
     def execute(self, cast):
-        player = cast["players"][0]
+        
         solid_blocks = cast["solid_blocks"]
         blocks = cast["blocks"]
         explosion = cast["explosion"]
-
-        self._compare_blocks(solid_blocks, player)
-        self._compare_blocks(blocks, player)
+        for i in range(2):
+            player = cast["players"][i]
+            self._compare_blocks(solid_blocks, player)
+            self._compare_blocks(blocks, player)
         self._collide_solid(solid_blocks, explosion)
         self._collide_block(cast,explosion,blocks)
         

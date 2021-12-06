@@ -18,8 +18,26 @@ class InputService:
             self (InputService): An instance of InputService.
         """
         pass
+    def get_direction_2(self):
+        dx = 0
+        dy = 0
         
-    def get_direction(self):
+        if self.is_a_pressed():
+            dx = -1   
+            
+        if self.is_d_pressed():
+            dx = 1
+            
+        if self.is_w_pressed():
+            dy = -1
+            
+        if self.is_s_pressed():
+            dy = 1
+            
+        direction = Point(dx,dy)
+        return direction
+     
+    def get_direction_1(self):
         """Gets the selected direction based on the currently pressed keys.
 
         Args:
@@ -46,8 +64,11 @@ class InputService:
         direction = Point(dx, dy)
         return direction
 
-    def drop_bomb(self):
-        return self.is_key_pressed()
+    def drop_bomb(self, num):
+        if num == 0:
+            return self.is_rshift_pressed()
+        elif num == 1:
+            return self.is_lshift_pressed()
             
 
     def is_left_pressed(self):
@@ -65,5 +86,20 @@ class InputService:
     def window_should_close(self):
         return raylibpy.window_should_close()
 
-    def is_key_pressed(self):
-        return raylibpy.is_key_pressed(raylibpy.KEY_SPACE)
+    def is_lshift_pressed(self):
+        return raylibpy.is_key_pressed(raylibpy.KEY_LEFT_SHIFT)
+    
+    def is_rshift_pressed(self):
+        return raylibpy.is_key_pressed(raylibpy.KEY_RIGHT_SHIFT)
+    
+    def is_a_pressed(self):
+        return raylibpy.is_key_down(raylibpy.KEY_A)
+    
+    def is_s_pressed(self):
+        return raylibpy.is_key_down(raylibpy.KEY_S)
+    
+    def is_d_pressed(self):
+        return raylibpy.is_key_down(raylibpy.KEY_D)
+    
+    def is_w_pressed(self):
+        return raylibpy.is_key_down(raylibpy.KEY_W)

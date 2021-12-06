@@ -46,6 +46,8 @@ class OutputService:
             raylibpy.draw_rectangle(x, y, width, height, raylibpy.GREEN)
         elif color == "RED":
             raylibpy.draw_rectangle(x, y, width, height, raylibpy.RED)
+        elif color == "YELLOW":
+            raylibpy.draw_rectangle(x, y, width, height, raylibpy.YELLOW)
         else:
             raylibpy.draw_rectangle(x, y, width, height, raylibpy.BLUE)
 
