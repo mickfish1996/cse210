@@ -89,13 +89,14 @@ def main():
             y = constants.MAX_Y - 40
             position = Point(x,y)
             player.set_position(position)
+            player.set_image(constants.IMAGE_PLAYER_1)
             
         elif i == 1:
             x = 40
             y = constants.MAX_Y - 40
             position = Point(x,y)
             player.set_position(position)
-            player.set_color("YELLOW")
+            player.set_image(constants.IMAGE_PLAYER_2)
             
         players.append(player)
         print(len(players))
