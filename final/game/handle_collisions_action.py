@@ -1,4 +1,5 @@
 from game.action import Action
+from game.power_ups import PowerUp
 from game.point import Point
 
 
@@ -19,6 +20,7 @@ class HandleCollisionsAction(Action):
             player = cast["players"][i]
             self._compare_blocks(solid_blocks, player)
             self._compare_blocks(blocks, player)
+            self._get_power_up(player,cast["power_ups"], cast)
             kill_player = self._compare_explosion(explosion,player)
             if kill_player:
                 kill = True
@@ -30,11 +32,22 @@ class HandleCollisionsAction(Action):
         self._collide_solid(solid_blocks, explosion)
         self._collide_block(cast,explosion,blocks)
     
+    def _get_power_up(self,player, power_ups, cast):
+        remove = None
+        for power in range(len(power_ups)):
+            if self._physics_service.is_collision(player, power_ups[power]):
+                if power_ups[power].get_type() == "speed_up":
+                    player.set_count(1)
+                    remove = power
+        if remove != None:            
+            cast["power_ups"].pop(remove)
+    
     def _compare_explosion(self, explosion, player):
-            for exp in range(len(explosion)):
-                if self._physics_service.is_collision(player, explosion[exp]):
-                    if explosion[exp].get_count() > 2:
-                        return True
+        
+        for exp in range(len(explosion)):
+            if self._physics_service.is_collision(player, explosion[exp]):
+                if explosion[exp].get_count() > 2:
+                    return True
                 else:
                     return False
                     
@@ -164,11 +177,21 @@ class HandleCollisionsAction(Action):
                     
                     
                     if distance == 195:
+                        if cast["blocks"][remove_up].get_power_up():
+                            power_up = PowerUp()
+                            position = cast["blocks"][remove_up].get_position()
+                            power_up.set_position(position)
+                            cast["power_ups"].append(power_up)
                         cast["blocks"].pop(remove_up)
 
                     else:
                         distance += 45
                         explosions[count].set_width(distance)
+                        if cast["blocks"][remove_up].get_power_up():
+                            power_up = PowerUp()
+                            position = cast["blocks"][remove_up].get_position()
+                            power_up.set_position(position)
+                            cast["power_ups"].append(power_up)
                         cast["blocks"].pop(remove_up)
                         
                 elif handle_up > 0 and count % 2 != 0:
@@ -178,11 +201,21 @@ class HandleCollisionsAction(Action):
 
                     distance = b_y - e_y
                     if distance == 195:
+                        if cast["blocks"][remove_up].get_power_up():
+                            power_up = PowerUp()
+                            position = cast["blocks"][remove_up].get_position()
+                            power_up.set_position(position)
+                            cast["power_ups"].append(power_up)
                         cast["blocks"].pop(remove_up)
 
                     else:
                         distance += 45
                         explosions[count].set_height(distance)
+                        if cast["blocks"][remove_up].get_power_up():
+                            power_up = PowerUp()
+                            position = cast["blocks"][remove_up].get_position()
+                            power_up.set_position(position)
+                            cast["power_ups"].append(power_up)
                         cast["blocks"].pop(remove_up)
 
 
@@ -198,7 +231,11 @@ class HandleCollisionsAction(Action):
                     
                     explosions[count].set_position(Point(e_x,e_y))
                                    
-                                    
+                    if cast["blocks"][remove_down].get_power_up():
+                            power_up = PowerUp()
+                            position = cast["blocks"][remove_down].get_position()
+                            power_up.set_position(position) 
+                            cast["power_ups"].append(power_up)             
                     cast["blocks"].pop(remove_down)
                     
                 if shrink == 1 and count % 2 != 0:
@@ -211,8 +248,18 @@ class HandleCollisionsAction(Action):
                         e_y = b_y + 5
                         explosions[count].set_position(Point(e_x,e_y))
                         explosions[count].set_height(explosions[count].get_height() - 50)
+                        if cast["blocks"][remove_down].get_power_up():
+                            power_up = PowerUp()
+                            position = cast["blocks"][remove_down].get_position()
+                            power_up.set_position(position)
+                            cast["power_ups"].append(power_up)
                         cast["blocks"].pop(remove_down)
                     else:
+                        if cast["blocks"][remove_down].get_power_up():
+                            power_up = PowerUp()
+                            position = cast["blocks"][remove_down].get_position()
+                            power_up.set_position(position)
+                            cast["power_ups"].append(power_up)
                         cast["blocks"].pop(remove_down)
                     
                 if shrink > 1 and count % 2 == 0:
@@ -226,7 +273,11 @@ class HandleCollisionsAction(Action):
                     
                     explosions[count].set_position(Point(e_x,e_y))
                                    
-                                    
+                    if cast["blocks"][remove_down].get_power_up():
+                        power_up = PowerUp()
+                        position = cast["blocks"][remove_down].get_position()
+                        power_up.set_position(position)     
+                        cast["power_ups"].append(power_up)         
                     cast["blocks"].pop(remove_down)
                     
                 if shrink == 1 and count % 2 == 0:
@@ -239,8 +290,18 @@ class HandleCollisionsAction(Action):
                         e_x = b_x + 5
                         explosions[count].set_position(Point(e_x,e_y))
                         explosions[count].set_width(explosions[count].get_width() - 50)
+                        if cast["blocks"][remove_down].get_power_up():
+                            power_up = PowerUp()
+                            position = cast["blocks"][remove_down].get_position()
+                            power_up.set_position(position)
+                            cast["power_ups"].append(power_up)
                         cast["blocks"].pop(remove_down)
                     else:
+                        if cast["blocks"][remove_down].get_power_up():
+                            power_up = PowerUp()
+                            position = cast["blocks"][remove_down].get_position()
+                            power_up.set_position(position)
+                            cast["power_ups"].append(power_up)
                         cast["blocks"].pop(remove_down)
                     
                         

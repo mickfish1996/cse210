@@ -18,6 +18,7 @@ class Player(Actor):
         
         self.set_height(20)
         self.set_width(20)
+        
 
     
     def get_count(self):
@@ -25,6 +26,8 @@ class Player(Actor):
     
     def set_count(self,count):
         self._count += count
+        
+
         
 
         

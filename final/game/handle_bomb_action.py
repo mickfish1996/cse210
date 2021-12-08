@@ -42,6 +42,8 @@ class HandleBombAction(Action):
             
             y = 50 * math.floor(bomb.get_position().get_y() / 50)
             explosion = Explosion()
+            if bomb.get_player_num() == 0:
+                explosion.set_color("BLUE")
             if count == 0:
                 x -= 100
                 explosion.set_position(Point(x + 5,y + 5))

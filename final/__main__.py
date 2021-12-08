@@ -58,6 +58,10 @@ def set_blocks(cast):
     for count in range(60):
         num = random.randint(0, len(blocks) - 1)
         blocks.pop(num)
+        
+    for count in range(5):
+        num = random.randint(0,len(blocks) - 1)
+        blocks[num].set_power_up(True)
     
     return blocks
 
