@@ -8,8 +8,8 @@ DEFAULT_SQUARE_SIZE = 20
 DEFAULT_FONT_SIZE = 60
 DEFAULT_TEXT_OFFSET = 4
 
-IMAGE_BLOCK = os.path.join(os.getcwd(), "./assets/block1.png")
-IMAGE_GREEN_BLOCK = os.path.join(os.getcwd(), "./assets/green_block1.png")
+IMAGE_BLOCK = os.path.join(os.getcwd(), "./assets/block.png")
+IMAGE_GREEN_BLOCK = os.path.join(os.getcwd(), "./assets/green_block.png")
 IMAGE_PLAYER_1 = os.path.join(os.getcwd(), "./assets/player1.png")
 IMAGE_PLAYER_2 = os.path.join(os.getcwd(), "./assets/player2.png")
 IMAGE_BOMB = os.path.join(os.getcwd(), "./assets/tnt.png")
