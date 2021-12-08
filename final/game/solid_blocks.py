@@ -8,7 +8,7 @@ class SolidBlock(Actor):
         self.row = row
         self.column = column
         self.start_block()
-        self.color = "GRAY"
+        self.set_color("GRAY")
         
     def start_block(self):
         self.set_height(constants.BLOCK_HEIGHT)
@@ -21,5 +21,3 @@ class SolidBlock(Actor):
         point = Point(x,y)
         self.set_position(point)
         
-    def get_color(self):
-        return self.color

@@ -29,6 +29,7 @@ class Actor:
         self._width = 0
         self._height = 0
         self._image = ""
+        self._color = ""
 
     def get_width(self):
         return self._width
@@ -128,4 +129,10 @@ class Actor:
 
     def has_image(self):
         return self._image != ""
+    
+    def get_color(self):
+        return self._color
+    
+    def set_color(self, color):
+        self._color = color
 

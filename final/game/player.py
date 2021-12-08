@@ -18,9 +18,7 @@ class Player(Actor):
         
         self.set_height(20)
         self.set_width(20)
-        
-    def get_color(self):
-        return self._color
+
     
     def get_count(self):
         return self._count
@@ -28,7 +26,6 @@ class Player(Actor):
     def set_count(self,count):
         self._count += count
         
-    def set_color(self,color):
-        self._color = color
+
         
         

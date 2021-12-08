@@ -35,8 +35,8 @@ class HandleCollisionsAction(Action):
                 if self._physics_service.is_collision(player, explosion[exp]):
                     if explosion[exp].get_count() > 2:
                         return True
-                    else:
-                        return False
+                else:
+                    return False
                     
     # This method is used to determine where on the board the player is allowed to
     # go. If there is a block where they want to go than their velocity gets set
