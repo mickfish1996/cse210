@@ -99,7 +99,7 @@ def main():
             player.set_image(constants.IMAGE_PLAYER_2)
             
         players.append(player)
-        print(len(players))
+        
     cast["players"] = players
 
     cast["bomb"] = []

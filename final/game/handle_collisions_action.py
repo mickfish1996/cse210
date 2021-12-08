@@ -26,16 +26,17 @@ class HandleCollisionsAction(Action):
                 
                 
         if kill:
-                cast["players"].pop(kill_p)
+            cast["players"].pop(kill_p)
         self._collide_solid(solid_blocks, explosion)
         self._collide_block(cast,explosion,blocks)
     
     def _compare_explosion(self, explosion, player):
             for exp in range(len(explosion)):
                 if self._physics_service.is_collision(player, explosion[exp]):
-                    return True
-                else:
-                    return False
+                    if explosion[exp].get_count() > 2:
+                        return True
+                    else:
+                        return False
                     
     # This method is used to determine where on the board the player is allowed to
     # go. If there is a block where they want to go than their velocity gets set
@@ -79,10 +80,10 @@ class HandleCollisionsAction(Action):
     # the explosion and you can no longer see it.
     def _collide_solid(self,blocks, explosions):
         if len(explosions) > 0:
-            for count in range(2):           
+            for count in range(len(explosions)):           
                 for block in blocks:
                     if self._physics_service.is_collision(explosions[count], block):
-                        if count == 0:
+                        if count % 2 == 0:
                             block_x = block.get_position().get_x()
                         
                             exp_x = explosions[count].get_position().get_x()
@@ -95,7 +96,7 @@ class HandleCollisionsAction(Action):
                                 explosions[count].set_position(Point(exp_x,exp_y))
                                 explosions[count].set_width(40)
                                 
-                        elif count == 1:
+                        elif count % 2 != 0:
                             block_y = block.get_position().get_y()
                             exp_x = explosions[count].get_position().get_x()
                             exp_y = explosions[count].get_position().get_y()
@@ -110,13 +111,13 @@ class HandleCollisionsAction(Action):
     # Blocks can can be removed from the screen, it will then adjust the 
     # position of the explostion along with its hight and width.                            
     def _collide_block(self,cast,explosions,blocks):
-        pass
         if len(explosions) > 0:
-            for count in range(2):
+            for count in range(len(explosions)):
                 remove_down = 0
                 remove_up = 0
                 shrink = 0
                 handle_up = 0
+                
 
                 for block in range(len(cast["blocks"])):
                     if self._physics_service.is_collision(explosions[count], cast["blocks"][block]):
@@ -126,33 +127,34 @@ class HandleCollisionsAction(Action):
                         e_x = explosions[count].get_position().get_x()
                         e_y = explosions[count].get_position().get_y()
                         
-                        if count == 0:
+                        if count % 2 == 0:
                             
                             if explosions[count].get_count() == 1:
                                 if b_x < (e_x + ((explosions[count].get_width() - 40) // 2)):
-                                    # print(f"b_x: {b_x}")
-                                    # print(f"center Block: {e_x + ((explosions[count].get_width() - 40) // 2)}")
+
                                     remove_down = block
                                     shrink += 1   
+                                    
                                     
                                 else: 
                                     handle_up += 1 
                                     if handle_up == 1:
                                         remove_up = block 
-                        if count == 1:
+                        if count % 2 != 0:
                             if explosions[count].get_count() == 1:
                                 if b_y < (e_y + ((explosions[count].get_height() - 45) // 2)):
-                                    # print(f"b_y: {b_y}")
-                                    # print(f"center block: {e_y + ((explosions[count].get_height() - 40) // 2)}")
                                     remove_down = block
-                                    shrink += 1   
+                                    shrink += 1 
                                 
                                 else:
                                     handle_up += 1 
                                     if handle_up == 1:
                                         remove_up = block
+                                    
+                                        
+                                
                 
-                if handle_up > 0 and count == 0:
+                if handle_up > 0 and count % 2 == 0:
                     b_x = blocks[remove_up].get_position().get_x()
                     e_x = explosions[count].get_position().get_x()
                     e_y = explosions[count].get_position().get_y()
@@ -169,7 +171,7 @@ class HandleCollisionsAction(Action):
                         explosions[count].set_width(distance)
                         cast["blocks"].pop(remove_up)
                         
-                elif handle_up > 0 and count == 1:
+                elif handle_up > 0 and count % 2 != 0:
                     b_y = blocks[remove_up].get_position().get_y()
                     e_x = explosions[count].get_position().get_x()
                     e_y = explosions[count].get_position().get_y()
@@ -185,7 +187,7 @@ class HandleCollisionsAction(Action):
 
 
 
-                if shrink > 1 and count == 1:
+                if shrink > 1 and count % 2 != 0:
                     explosions[count].set_height(explosions[count].get_height() - 50)
                     b_y = blocks[remove_down].get_position().get_y()
                     e_x = explosions[count].get_position().get_x()
@@ -199,7 +201,7 @@ class HandleCollisionsAction(Action):
                                     
                     cast["blocks"].pop(remove_down)
                     
-                if shrink == 1 and count == 1:
+                if shrink == 1 and count % 2 != 0:
                     b_y = blocks[remove_down].get_position().get_y()
                     e_x = explosions[count].get_position().get_x()
                     e_y = explosions[count].get_position().get_y()
@@ -213,7 +215,7 @@ class HandleCollisionsAction(Action):
                     else:
                         cast["blocks"].pop(remove_down)
                     
-                if shrink > 1 and count == 0:
+                if shrink > 1 and count % 2 == 0:
                     explosions[count].set_width(explosions[count].get_width() - 50)
                     b_x = blocks[remove_down].get_position().get_x()
                     e_x = explosions[count].get_position().get_x()
@@ -227,7 +229,7 @@ class HandleCollisionsAction(Action):
                                     
                     cast["blocks"].pop(remove_down)
                     
-                if shrink == 1 and count == 0:
+                if shrink == 1 and count % 2 == 0:
                     b_x = blocks[remove_down].get_position().get_x()
                     e_x = explosions[count].get_position().get_x()
                     e_y = explosions[count].get_position().get_y()
