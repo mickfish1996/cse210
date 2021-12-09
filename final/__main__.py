@@ -69,7 +69,7 @@ def set_blocks(cast):
 
 def main():
     cast = {}
-
+    cast["main_menu_text"] = [] 
     cast["solid_blocks"] = []
     solid_blocks = []
     for row in range(6):
