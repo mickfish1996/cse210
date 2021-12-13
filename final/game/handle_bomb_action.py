@@ -1,11 +1,14 @@
 from game.action import Action
 from game.explosion import Explosion
 from game.point import Point
+from game import constants
+
 import math
 
 class HandleBombAction(Action):
-    def __init__(self, control):
+    def __init__(self, control, audio):
         self._control = control
+        self._audio = audio
     def execute(self,cast):
         self._handle_bombs(cast)
         self._handle_explosion(cast)     
@@ -20,6 +23,8 @@ class HandleBombAction(Action):
                     self._create_explosion(cast,cast["bomb"][bomb])
                     cast["players"][cast["bomb"][bomb].get_player_num()].set_count(1)
                     cast["bomb"].pop(bomb)
+                    self._audio.play_sound(constants.SOUND_EXPLODE)
+
 
                 else:
                     bombs[bomb].set_count(count + 1)

@@ -17,7 +17,7 @@ IMAGE_BOMB_UP = os.path.join(os.getcwd(), "./assets/bomb_up.png")
 
 
 SOUND_START = os.path.join(os.getcwd(), "./assets/start.wav")
-SOUND_BOUNCE = os.path.join(os.getcwd(), "./assets/boing.wav")
+SOUND_EXPLODE = os.path.join(os.getcwd(), "./assets/cannon.wav")
 SOUND_OVER = os.path.join(os.getcwd(), "./assets/over.wav")
 
 PLAYER_SPEED = 5

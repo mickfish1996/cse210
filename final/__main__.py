@@ -59,7 +59,7 @@ def set_blocks(cast):
         num = random.randint(0, len(blocks) - 1)
         blocks.pop(num)
         
-    for count in range(5):
+    for count in range(20):
         num = random.randint(0,len(blocks) - 1)
         blocks[num].set_power_up(True)
     
@@ -122,7 +122,7 @@ def main():
     move_actors_action = MoveActorsAction()
     handle_collision_action = HandleCollisionsAction(physics_service)
     handle_off_screen = HandleOffScreenAction()
-    handle_bomb_action = HandleBombAction(control_actors_action)
+    handle_bomb_action = HandleBombAction(control_actors_action, audio_service)
 
     script["input"] = [control_actors_action]
     script["update"] = [handle_off_screen, handle_bomb_action, handle_collision_action, move_actors_action]
