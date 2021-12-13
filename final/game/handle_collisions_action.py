@@ -32,6 +32,9 @@ class HandleCollisionsAction(Action):
         self._collide_solid(solid_blocks, explosion)
         self._collide_block(cast,explosion,blocks)
     
+    # This method works by seeing if the player is running into the 
+    # power up. If they run into it then it increases the bomb count 
+    # that that specific player has
     def _get_power_up(self,player, power_ups, cast):
         remove = None
         for power in range(len(power_ups)):
@@ -41,9 +44,11 @@ class HandleCollisionsAction(Action):
                     remove = power
         if remove != None:            
             cast["power_ups"].pop(remove)
-    
-    def _compare_explosion(self, explosion, player):
-        
+            
+    # This method handles the explosions and the players colliding, it is 
+    # set to work after the count hits 2 because if it didn't it would kill 
+    # the player in locations that it should not be killing a player
+    def _compare_explosion(self, explosion, player):    
         for exp in range(len(explosion)):
             if self._physics_service.is_collision(player, explosion[exp]):
                 if explosion[exp].get_count() > 2:
